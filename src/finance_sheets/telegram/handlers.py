@@ -5,7 +5,7 @@ from telegram import Update
 
 from finance_sheets.telegram.ui.keyboards import root_keyboard
 from finance_sheets.services.gemini import gemini_service
-from finance_sheets.services.sheets import sheets_service
+from finance_sheets.services.sheets_factory import sheets_service_factory
 
 from finance_sheets.utils.dates import get_current_month_name
 
@@ -22,24 +22,39 @@ async def menu(update: Update):
     await send_response(update, "<b>Olá eu sou o bot do dinheiro 🤑</b>\nEscolha uma opção:", root_keyboard())
 
 
-async def saldo(update: Update):
-    user = update.effective_user
+async def balance(update: Update):
+    user_name = update.effective_user.first_name
     current_month = get_current_month_name()
-    text = f"\nEm <i>{current_month}</i> seu saldo é de <b>{sheets_service.get_month_balance()}</b>"
+
+    sheets_service = sheets_service_factory.create(user_name)
+    balance = sheets_service.get_month_balance()
+
+    text = f"\nEm <i>{current_month}</i> seu saldo é de <b>{balance}</b>"
 
     await send_response(update, text, root_keyboard())
 
 
-async def entradas(update: Update):
+async def income(update: Update):
+    user_name = update.effective_user.first_name
     current_month = get_current_month_name()
-    text = f"\nEm <i>{current_month}</i> suas entradas somam <b>{sheets_service.get_month_income()}</b>"
+
+    sheets_service = sheets_service_factory.create(user_name)
+    income = sheets_service.get_month_income()
+
+    text = f"\nEm <i>{current_month}</i> suas entradas somam <b>{income}</b>"
     
     await send_response(update, text, root_keyboard())
 
 
-async def saidas(update: Update):
+
+async def expense(update: Update):
+    user_name = update.effective_user.first_name
     current_month = get_current_month_name()
-    text = f"\nEm <i>{current_month}</b> suas saídas somam <i>{sheets_service.get_month_expense()}</i>"
+
+    sheets_service = sheets_service_factory.create(user_name)
+    expense = sheets_service.get_month_expense()
+
+    text = f"\nEm <i>{current_month}</i> suas saídas somam <b>{expense}</b>"
 
     await send_response(update, text, root_keyboard())
 
@@ -51,6 +66,8 @@ async def handle_ai_response(update):
 
     gemini_response = gemini_service.interpret_text(message_text, date)
     response = json.loads(gemini_response)
+
+    sheets_service = sheets_service_factory.create(user_name)
 
     if (response["type"] == "response"):
         await send_response(update, response["resposta"])

@@ -26,7 +26,7 @@ class GeminiService:
             Retorne apenas o seguinte JSON:
                 Campo "type": response,
                 Campo "resposta":
-                    - Gere uma resposta curta, natural, como se você fosse um pastor evangélico.
+                    - Gere uma resposta curta, natural, como se você fosse um assistente financeiro.
                     - Não mencione que a mensagem não é uma transação financeira.
                     - Não peça informações adicionais, a menos que seja necessário para responder.
                     - Exemplos:

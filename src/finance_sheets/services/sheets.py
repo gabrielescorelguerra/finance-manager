@@ -2,6 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from finance_sheets.utils.dates import add_months
 from finance_sheets.constants import SheetsColumns
+from finance_sheets.services.user import get_user_sheet
 from dotenv import load_dotenv
 import os
 
@@ -14,14 +15,18 @@ SCOPES = [
 
 class SheetsService:
     # abre a planilha
-    def __init__(self):
+    def __init__(self, sheet_key=None):
+        # se usar apenas uma planilha, não precisa passar o sheet_key, ele pega do .env
+        if sheet_key is None:
+            sheet_key = os.getenv("SHEET_KEY")
+
         creds = Credentials.from_service_account_file(
             "./keys/service-account.json",
             scopes=SCOPES
         )
         self.client = gspread.authorize(creds)
 
-        self.sheet = self.client.open_by_key(os.getenv("SHEET_KEY"))
+        self.sheet = self.client.open_by_key(sheet_key)
 
         self.cash_flow_worksheet = self.sheet.worksheet("Fluxo")
         self.data_worksheet = self.sheet.worksheet("Dados")
@@ -88,5 +93,3 @@ class SheetsService:
 
     def get_month_expense(self):
         return self.data_worksheet.acell("X6").value
-
-sheets_service = SheetsService()

@@ -6,14 +6,14 @@ from finance_sheets.telegram.handlers import *
 COMMAND_ROUTER = {
     "/start": menu,
     "/menu": menu,
-    "/saldo": saldo,
-    "/entradas": entradas,
-    "/saidas": saidas,
+    "/saldo": balance,
+    "/entradas": income,
+    "/saidas": expense,
 }
 
 CALLBACK_ROUTER = {
     CallbackData.MENU.value: menu,
-    CallbackData.SALDO.value: saldo,
-    CallbackData.ENTRADAS.value: entradas,
-    CallbackData.SAIDAS.value: saidas,
+    CallbackData.SALDO.value: balance,
+    CallbackData.ENTRADAS.value: income,
+    CallbackData.SAIDAS.value: expense,
 }
