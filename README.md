@@ -1,0 +1,1 @@
+Rodar: uv run uvicorn finance_sheets.main:app --reload
