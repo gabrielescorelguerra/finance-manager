@@ -2,6 +2,7 @@
 
 import logging
 from contextlib import asynccontextmanager
+import os
 
 from fastapi import FastAPI
 
@@ -11,17 +12,19 @@ from finance_sheets.routes.webhook import router as webhook_router
 # vai imprimir
 logging.getLogger().setLevel(logging.INFO)
 
+ENV = os.getenv("ENVIRONMENT", "production")  # "local" ou "production"
 PORT = 8000
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    from pyngrok import ngrok
+    if ENV == "local": 
+        from pyngrok import ngrok
+        http_tunnel = ngrok.connect(PORT, bind_tls=True)
+        webhook_url = f"{http_tunnel.public_url}/webhook"
+    else:
+        webhook_url = os.getenv("WEBHOOK_URL")
 
-    http_tunnel = ngrok.connect(PORT, bind_tls=True)
-    public_url = http_tunnel.public_url
-    webhook_url = f"{public_url}/webhook"
     await configure_bot(webhook_url)
-
     yield
 
 
