@@ -18,4 +18,4 @@ wheels/
 .env
 
 # Keys
-keys/
+service-account.json

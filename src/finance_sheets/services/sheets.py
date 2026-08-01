@@ -21,7 +21,7 @@ class SheetsService:
             sheet_key = os.getenv("SHEET_KEY")
 
         creds = Credentials.from_service_account_file(
-            "./keys/service-account.json",
+            "./service-account.json",
             scopes=SCOPES
         )
         self.client = gspread.authorize(creds)
