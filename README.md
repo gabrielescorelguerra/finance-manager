@@ -14,25 +14,25 @@
 </p>
 
 <p align="center">
-  Bot do Telegram para gerenciamento financeiro pessoal, integrado ao Google Sheets e com processamento inteligente de transações usando IA.
+  Telegram bot for personal finance management, integrated with Google Sheets and featuring AI-powered transaction processing.
 </p>
 
-## Funcionalidades
+## Features
 
-- [x] Registro de transações financeiras via Telegram
-- [x] Integração com Google Sheets para armazenamento e organização dos dados
-- [x] Processamento inteligente de mensagens com Gemini
-- [x] API com FastAPI para suporte a webhook
-- [x] Suporte a configuração para uma ou múltiplas planilhas por usuário
+* [x] Record financial transactions through Telegram
+* [x] Google Sheets integration for data storage and organization
+* [x] Intelligent message processing with Gemini
+* [x] FastAPI backend with webhook support
+* [x] Support for configuring one or multiple spreadsheets per user
 
-## Funcionalidades Futuras
+## Upcoming Features
 
-- [ ] Acesso a estatísticas mais avançadas por meio do telegram
-- [ ] Dashboard anual
-- [ ] Dashboard de planejamento e previsões
-- [ ] Possibilidade de excluir e editar transações por meio do telegram
+* [ ] Access more advanced statistics through Telegram
+* [ ] Annual dashboard
+* [ ] Planning and forecasting dashboard
+* [ ] Delete and edit transactions through Telegram
 
-## Instalação
+## Installation
 
 ```bash
 git clone https://github.com/gabrielescorelguerra/finance-manager.git
@@ -41,34 +41,34 @@ cd finance_manager
 uv sync
 ```
 
-## Configuração
+## Configuration
 
-Crie um arquivo `.env` com base no `.env.example`:
+Create a `.env` file based on `.env.example`:
 
 ```env
-TELEGRAM_TOKEN="SEU_TOKEN_DO_TELEGRAM"
-GEMINI_API_KEY="SUA_CHAVE_DA_API_DO_GEMINI"
+TELEGRAM_TOKEN="YOUR_TELEGRAM_BOT_TOKEN"
+GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
 
-# Para 1 planilha
-SHEET_KEY="SUA_CHAVE_DO_GOOGLE_SHEET"
+# For 1 spreadsheet
+SHEET_KEY="YOUR_GOOGLE_SHEET_KEY"
 
-# Para 2 planilhas
-USER_1_SHEET_KEY="SUA_CHAVE_DA_PLANILHA_DO_USUARIO_1"
-USER_2_SHEET_KEY="SUA_CHAVE_DA_PLANILHA_DO_USUARIO_2"
+# For 2 spreadsheets
+USER_1_SHEET_KEY="USER_1_GOOGLE_SHEET_KEY"
+USER_2_SHEET_KEY="USER_2_GOOGLE_SHEET_KEY"
 
 ENVIRONMENT=local
-WEBHOOK_URL="https://seu-app.onrender.com/webhook"
+WEBHOOK_URL="https://your-app.onrender.com/webhook"
 ```
 
-## Uso
+## Usage
 
-Rodar localmente:
+Run locally:
 
 ```bash
 uv run uvicorn finance_sheets.main:app --reload
 ```
 
-## Estrutura do projeto
+## Project Structure
 
 ```bash
 finance_manager/
